@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import defer from 'es6-defer';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -12,11 +11,11 @@ const cleanup = (element) => {
 };
 
 /* eslint react/no-multi-comp: 0 */
-const showSnackbar = (dialog) => {
+const showSnackbar = (snackbar) => {
   const div = document.createElement('div');
   document.body.appendChild(div);
 
-  const dlg = ReactDOM.render(dialog, div); // eslint-disable-line react/no-render-return-value
+  const dlg = ReactDOM.render(snackbar, div); // eslint-disable-line react/no-render-return-value
 
   return dlg.promise.then((result) => {
     setTimeout(() => cleanup(div), 2000);
@@ -24,40 +23,48 @@ const showSnackbar = (dialog) => {
   });
 };
 
-const snackbarOptions = {
+const defaultOptions = {
   duration: 3000,
   theme: {},
 };
 
 export const show = (message, options = {}) => {
-  const dialogOptions = Object.assign({}, snackbarOptions, options);
+  const snackbarOptions = Object.assign({}, defaultOptions, options);
   class SnackbarContainer extends Component {
     constructor() {
       super();
       this.deferred = defer();
       this.promise = this.deferred.promise;
-      this.handleRequestClose = this.handleRequestClose.bind(this);
       this.state = {
-        open: true,
+        open: false,
       };
+    }
+
+    componentWillMount() {
+      setTimeout(() => {
+        this.setState({ open: true });
+        // setTimeout(() => {
+          // this.setState({ open: false });
+        // }, snackbarOptions.duration);
+      }, 200);
     }
 
     handleRequestClose() {
       this.setState({
         open: false,
       });
-      this.promise.resolve();
+      this.deferred.resolve();
     }
 
     render() {
-      const theme = getMuiTheme(options.theme)
+      const theme = getMuiTheme(snackbarOptions.theme);
       return (
         <MuiThemeProvider muiTheme={theme}>
           <Snackbar
             open={this.state.open}
             message={message}
-            autoHideDuration={options.duration}
-            onRequestClose={this.handleRequestClose}
+            autoHideDuration={snackbarOptions.duration}
+            onRequestClose={this.handleRequestClose.bind(this)}
           />
         </MuiThemeProvider>
       );
@@ -67,27 +74,35 @@ export const show = (message, options = {}) => {
 };
 
 export const showWithAction = (message, action, options = {}) => {
-  const dialogOptions = Object.assign({}, snackbarOptions, options);
+  const snackbarOptions = Object.assign({}, defaultOptions, options);
   class SnackbarContainer extends Component {
     constructor() {
       super();
       this.deferred = defer();
       this.promise = this.deferred.promise;
-      this.handleRequestClose = this.handleRequestClose.bind(this);
       this.state = {
-        open: true,
+        open: false,
       };
+    }
+
+    componentWillMount() {
+      setTimeout(() => {
+        this.setState({ open: true });
+        // setTimeout(() => {
+        //   this.setState({ open: false });
+        // }, snackbarOptions.duration);
+      }, 200);
     }
 
     handleRequestClose() {
       this.setState({
         open: false,
       });
-      this.promise.resolve();
+      this.deferred.resolve();
     }
 
     render() {
-      const theme = getMuiTheme(options.theme)
+      const theme = getMuiTheme(snackbarOptions.theme);
       return (
         <MuiThemeProvider muiTheme={theme}>
           <Snackbar
@@ -95,10 +110,10 @@ export const showWithAction = (message, action, options = {}) => {
             message={message}
             action={action}
             onActionTouchTap={() => {
-              this.promise.resolve(true);
+              this.deferred.resolve(true);
             }}
-            autoHideDuration={options.duration}
-            onRequestClose={this.handleRequestClose}
+            autoHideDuration={snackbarOptions.duration}
+            onRequestClose={this.handleRequestClose.bind(this)}
           />
         </MuiThemeProvider>
       );
