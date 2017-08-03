@@ -1,0 +1,48 @@
+{
+  "name": "mui-simple-snackbars",
+  "description": "Turning MUI snackbars easier to use.",
+  "keywords": [
+    "mui",
+    "snackbars",
+    "react",
+    "ui",
+    "material-ui",
+    "material-design"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreyluiz/mui-simple-snackbars.git"
+  },
+  "version": "0.1.0",
+  "homepage": "https://github.com/andreyluiz/mui-simple-snackbars",
+  "bugs": {
+    "url": "https://github.com/andreyluiz/mui-simple-snackbars/issues",
+    "email": "andreyluiz.developer@gmail.com"
+  },
+  "author": {
+    "name": "Andrey Luiz",
+    "email": "andreyluiz.developer@gmail.com"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
+  "peerDependencies": {
+    "material-ui": "^0.17.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-tap-event-plugin": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.2.0"
+  },
+  "dependencies": {
+    "arrify": "^1.0.1",
+    "es6-defer": "^1.0.1"
+  }
+}
