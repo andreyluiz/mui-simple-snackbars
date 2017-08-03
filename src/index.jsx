@@ -4,6 +4,11 @@ import defer from 'es6-defer';
 import Snackbar from 'material-ui/Snackbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 const cleanup = (element) => {
   ReactDOM.unmountComponentAtNode(element);
@@ -11,14 +16,14 @@ const cleanup = (element) => {
 };
 
 /* eslint react/no-multi-comp: 0 */
-const showSnackbar = (snackbar) => {
+const showSnackbar = (snackbar, duration) => {
   const div = document.createElement('div');
   document.body.appendChild(div);
 
   const dlg = ReactDOM.render(snackbar, div); // eslint-disable-line react/no-render-return-value
 
   return dlg.promise.then((result) => {
-    setTimeout(() => cleanup(div), 2000);
+    setTimeout(() => cleanup(div), duration + 1000);
     return result;
   });
 };
@@ -70,7 +75,7 @@ export const show = (message, options = {}) => {
       );
     }
   }
-  return showSnackbar(<SnackbarContainer />);
+  return showSnackbar(<SnackbarContainer />, snackbarOptions.duration);
 };
 
 export const showWithAction = (message, action, options = {}) => {
@@ -119,5 +124,5 @@ export const showWithAction = (message, action, options = {}) => {
       );
     }
   }
-  return showSnackbar(<SnackbarContainer />);
+  return showSnackbar(<SnackbarContainer />, snackbarOptions.duration);
 };
