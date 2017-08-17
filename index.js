@@ -12664,10 +12664,14 @@ var defaultOptions = {
   theme: {}
 };
 
+var simpleSnackbarOptions = Object.assign({}, defaultOptions, {
+  centered: true
+});
+
 var show = exports.show = function show(message) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  var snackbarOptions = Object.assign({}, defaultOptions, options);
+  var snackbarOptions = Object.assign({}, simpleSnackbarOptions, options);
 
   var SnackbarContainer = function (_Component) {
     _inherits(SnackbarContainer, _Component);
@@ -12713,6 +12717,7 @@ var show = exports.show = function show(message) {
           _MuiThemeProvider2.default,
           { muiTheme: theme },
           _react2.default.createElement(_Snackbar2.default, {
+            bodyStyle: { textAlign: snackbarOptions.centered ? 'center' : 'left' },
             open: this.state.open,
             message: message,
             autoHideDuration: snackbarOptions.duration,
@@ -12727,6 +12732,8 @@ var show = exports.show = function show(message) {
 
   return showSnackbar(_react2.default.createElement(SnackbarContainer, null), snackbarOptions.duration);
 };
+
+var withActionOptions = Object.assign({}, defaultOptions, { primaryButton: true });
 
 var showWithAction = exports.showWithAction = function showWithAction(message, action) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};

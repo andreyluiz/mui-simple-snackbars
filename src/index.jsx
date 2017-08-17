@@ -33,10 +33,9 @@ const defaultOptions = {
   theme: {},
 };
 
-const simpleSnackbarOptions = {
-  ...defaultOptions,
+const simpleSnackbarOptions = Object.assign({}, defaultOptions, {
   centered: true,
-};
+});
 
 export const show = (message, options = {}) => {
   const snackbarOptions = Object.assign({}, simpleSnackbarOptions, options);
@@ -84,10 +83,7 @@ export const show = (message, options = {}) => {
   return showSnackbar(<SnackbarContainer />, snackbarOptions.duration);
 };
 
-const withActionOptions = {
-  ...defaultOptions,
-  primaryButton: true,
-}
+const withActionOptions = Object.assign({}, defaultOptions, { primaryButton: true });
 
 export const showWithAction = (message, action, options = {}) => {
   const snackbarOptions = Object.assign({}, defaultOptions, options);
