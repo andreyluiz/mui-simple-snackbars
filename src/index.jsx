@@ -33,8 +33,13 @@ const defaultOptions = {
   theme: {},
 };
 
+const simpleSnackbarOptions = {
+  ...defaultOptions,
+  centered: true,
+};
+
 export const show = (message, options = {}) => {
-  const snackbarOptions = Object.assign({}, defaultOptions, options);
+  const snackbarOptions = Object.assign({}, simpleSnackbarOptions, options);
   class SnackbarContainer extends Component {
     constructor() {
       super();
@@ -66,6 +71,7 @@ export const show = (message, options = {}) => {
       return (
         <MuiThemeProvider muiTheme={theme}>
           <Snackbar
+            bodyStyle={{ textAlign: snackbarOptions.centered ? 'center' : 'left' }}
             open={this.state.open}
             message={message}
             autoHideDuration={snackbarOptions.duration}
@@ -77,6 +83,11 @@ export const show = (message, options = {}) => {
   }
   return showSnackbar(<SnackbarContainer />, snackbarOptions.duration);
 };
+
+const withActionOptions = {
+  ...defaultOptions,
+  primaryButton: true,
+}
 
 export const showWithAction = (message, action, options = {}) => {
   const snackbarOptions = Object.assign({}, defaultOptions, options);
