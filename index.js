@@ -12790,6 +12790,7 @@ var showWithAction = exports.showWithAction = function showWithAction(message, a
             message: message,
             action: action,
             onActionTouchTap: function onActionTouchTap() {
+              _this5.setState({ open: false });
               _this5.deferred.resolve(true);
             },
             autoHideDuration: snackbarOptions.duration,

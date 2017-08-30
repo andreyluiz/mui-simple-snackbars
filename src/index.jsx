@@ -122,6 +122,7 @@ export const showWithAction = (message, action, options = {}) => {
             message={message}
             action={action}
             onActionTouchTap={() => {
+              this.setState({ open: false });
               this.deferred.resolve(true);
             }}
             autoHideDuration={snackbarOptions.duration}
