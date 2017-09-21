@@ -17,6 +17,13 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    react: 'react',
+    'react-dom': 'react-dom',
+    'material-ui/Snackbar': 'material-ui/Snackbar',
+    'material-ui/styles/MuiThemeProvider': 'material-ui/styles/MuiThemeProvider',
+    'material-ui/styles/getMuiTheme': 'material-ui/styles/getMuiTheme',
+  },
   resolve: {
     extensions: ['.js', '.jsx']
   },
